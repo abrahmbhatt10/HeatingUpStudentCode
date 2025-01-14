@@ -15,7 +15,7 @@ public class WeatherPatterns {
      * @return the longest run of days with increasing temperatures
      */
     public static int longestWarmingTrend(int[] temperatures) {
-        // TODO: Write your code here!
+
 
         return 0;
     }
