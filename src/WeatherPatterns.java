@@ -56,10 +56,17 @@ public class WeatherPatterns {
         }
         int currentTemp = temperatures[startPos];
         int sRun = 0;
+        int sPos = currentPos + 1;
         for(int i = currentPos + 1; i < endPos; i++){
             if(temperatures[i] > currentTemp){
-                sRun++;
+                if((i - sPos) <= 2){
+                    sRun++;
+                }
+                else{
+                    sRun += calcSubLongestRuns(currentPos, temperatures, currentPos, i);
+                }
                 currentTemp = temperatures[i];
+                sPos = i;
             }
         }
         if(sRun > 1){
