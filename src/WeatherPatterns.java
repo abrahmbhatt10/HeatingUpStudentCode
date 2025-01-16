@@ -56,7 +56,7 @@ public class WeatherPatterns {
         }
         int currentTemp = temperatures[startPos];
         int sRun = 0;
-        for(int i = currentPos; i < endPos; i++){
+        for(int i = currentPos + 1; i < endPos; i++){
             if(temperatures[i] > currentTemp){
                 sRun++;
                 currentTemp = temperatures[i];
