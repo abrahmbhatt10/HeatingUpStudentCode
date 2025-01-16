@@ -47,11 +47,10 @@ public class WeatherPatterns {
         if((endPos - currentPos) < 3){
             return 1;
         }
-        int startTemp = temperatures[startPos];
-        int currentTemp = startTemp;
+        int currentTemp = temperatures[startPos];
         int sRun = 0;
         for(int i = currentPos; i < endPos; i++){
-            if(temperatures[i] > startTemp){
+            if(temperatures[i] > currentTemp){
                 sRun++;
                 currentTemp = temperatures[i];
             }
