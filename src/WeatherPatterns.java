@@ -28,6 +28,10 @@ public class WeatherPatterns {
         return longestRun + 1;
     }
 
+    /*
+    The starting point is fixed in the array.
+    The function returns the longest run for that starting point.
+     */
     private static int calcLongestRun(int startPos, int[] temperatures) {
         if((startPos < 0) || (startPos > temperatures.length)){
             return 0;
@@ -50,6 +54,10 @@ public class WeatherPatterns {
         return mRun;
     }
 
+    /*
+        Receives a sub array that is skipped after a dip.
+        Figures out whether the dip interval has longer run.
+     */
     private static int calcSubLongestRuns(int startPos, int[] temperatures, int currentPos, int endPos){
         int sRun = 1;
 
