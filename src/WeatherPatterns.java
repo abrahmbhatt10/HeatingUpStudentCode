@@ -72,6 +72,6 @@ public class WeatherPatterns {
         if(sRun > 1){
             return sRun;
         }
-        return 1;
+        return 0;
     }
 }
