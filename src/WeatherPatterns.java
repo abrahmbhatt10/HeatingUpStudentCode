@@ -34,10 +34,17 @@ public class WeatherPatterns {
         }
         int currentTemp = temperatures[startPos];
         int mRun = 0;
+        int currentPos = startPos;
         for(int i = startPos + 1; i < temperatures.length; i++){
             if(temperatures[i] > currentTemp){
-                mRun++;
+                if((i - currentPos) <= 2){
+                    mRun++;
+                }
+                else{
+                    mRun += calcSubLongestRuns(startPos, temperatures, currentPos, i);
+                }
                 currentTemp = temperatures[i];
+                currentPos = i;
             }
         }
         return mRun;
