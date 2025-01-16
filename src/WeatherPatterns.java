@@ -51,13 +51,14 @@ public class WeatherPatterns {
     }
 
     private static int calcSubLongestRuns(int startPos, int[] temperatures, int currentPos, int endPos){
+        int sRun = 1;
+
         if((endPos - currentPos) < 3){
-            return 1;
+            return sRun;
         }
-        int sRun = 0;
         int sPos = startPos;
         int pPos = startPos;
-        for(int i = startPos+1; i < endPos; i++){
+        for(int i = currentPos+1; i < endPos; i++){
             if(temperatures[i] > temperatures[sPos]){
                 if((i - sPos) <= 2){
                     sRun++;
