@@ -32,18 +32,18 @@ public class WeatherPatterns {
         if((startPos < 0) || (startPos > temperatures.length)){
             return 0;
         }
-        int currentTemp = temperatures[startPos];
         int mRun = 0;
+        int previousPos = startPos;
         int currentPos = startPos;
-        for(int i = startPos + 1; i < temperatures.length; i++){
-            if(temperatures[i] > currentTemp){
+        for(int i = startPos+1; i < temperatures.length; i++){
+            if(temperatures[i] > temperatures[currentPos]){
                 if((i - currentPos) <= 2){
                     mRun++;
                 }
                 else{
-                    mRun += calcSubLongestRuns(startPos, temperatures, currentPos, i);
+                    mRun += calcSubLongestRuns(previousPos, temperatures, currentPos, i);
                 }
-                currentTemp = temperatures[i];
+                previousPos = currentPos;
                 currentPos = i;
             }
         }
@@ -54,24 +54,21 @@ public class WeatherPatterns {
         if((endPos - currentPos) < 3){
             return 1;
         }
-        int currentTemp = temperatures[startPos];
         int sRun = 0;
-        int sPos = currentPos + 1;
-        for(int i = currentPos + 1; i < endPos; i++){
-            if(temperatures[i] > currentTemp){
+        int sPos = startPos;
+        int pPos = startPos;
+        for(int i = startPos+1; i < endPos; i++){
+            if(temperatures[i] > temperatures[sPos]){
                 if((i - sPos) <= 2){
                     sRun++;
                 }
                 else{
-                    sRun += calcSubLongestRuns(currentPos + 1, temperatures, sPos, i);
+                    sRun += calcSubLongestRuns(pPos, temperatures, sPos, i);
                 }
-                currentTemp = temperatures[i];
+                pPos = sPos;
                 sPos = i;
             }
         }
-        if(sRun > 1){
-            return sRun;
-        }
-        return 0;
+        return sRun;
     }
 }
