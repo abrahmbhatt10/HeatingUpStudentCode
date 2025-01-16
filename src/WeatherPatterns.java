@@ -63,7 +63,7 @@ public class WeatherPatterns {
                     sRun++;
                 }
                 else{
-                    sRun += calcSubLongestRuns(sPos, temperatures, sPos, i);
+                    sRun += calcSubLongestRuns(currentPos + 1, temperatures, sPos, i);
                 }
                 currentTemp = temperatures[i];
                 sPos = i;
