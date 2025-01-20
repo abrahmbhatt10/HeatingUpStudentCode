@@ -42,9 +42,11 @@ public class WeatherPatterns {
         }
         int currentLen = 0;
         for(int i = 0; i < temperatures[currentPos]; i++){
-            currentLen = maxLongestPathForSub(currentPos, temperatures, vertexLenArr);
-            if(len < currentLen){
-                len = currentLen;
+            if(vertexLenArr[i] == 0){
+                vertexLenArr[i] = maxLongestPathForSub(i, temperatures, vertexLenArr);
+            }
+            if(len < vertexLenArr[i]){
+                len = vertexLenArr[i];
             }
         }
         return 1 + len;
@@ -71,5 +73,4 @@ public class WeatherPatterns {
         }
         return maxPath;
     }
-
 }
