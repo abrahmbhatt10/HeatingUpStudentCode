@@ -1,7 +1,6 @@
-import java.util.ArrayList;
 
 /**
- * The class WeatherPatterns finds the longest span of days in which
+* The class WeatherPatterns finds the longest span of days in which
  * each day’s temperature is higher than on the previous day in that sequence.
  *
  * @author Zach Blick
@@ -9,75 +8,65 @@ import java.util.ArrayList;
  */
 
 public class WeatherPatterns {
-
-
     /**
      * Longest Warming Trend
      * @param temperatures
      * @return the longest run of days with increasing temperatures
      */
     public static int longestWarmingTrend(int[] temperatures) {
-        int longestRun = 0;
-        int currentRun = 0;
+        // This temperature can be anywhere from -50 to 130.
+        int[] vertexLenArr = new int[181];
+        for(int i = 0; i < vertexLenArr.length; i++){
+            vertexLenArr[i] = 0;
+        }
+        int vertexPos = 0;
         for(int i = 0; i < temperatures.length; i++){
-            currentRun = calcLongestRun(i, temperatures);
-            if(currentRun > longestRun){
-                longestRun = currentRun;
-            }
+            vertexPos = temperatures[i];
+            vertexLenArr[vertexPos] = longestPathTo(i, temperatures, vertexLenArr);
         }
-        return longestRun + 1;
+        return 0;
     }
 
     /*
-    The starting point is fixed in the array.
-    The function returns the longest run for that starting point.
+        Below pseudocode taken from Mr. Blick's slides:
+        LongestPathTo(Vertex V):
+	    len = 0;
+        For each vertex V' leading to V:
+		    len = Max( len,  LongestPathTo(V'))
+         return 1 + len;
      */
-    private static int calcLongestRun(int startPos, int[] temperatures) {
-        if((startPos < 0) || (startPos > temperatures.length)){
-            return 0;
+    public static int longestPathTo(int currentPos, int[] temperatures, int[] vertexLenArr){
+        int len = 0;
+        if(currentPos == 0){
+            return 1 + len;
         }
-        int mRun = 0;
-        int previousPos = startPos;
-        int currentPos = startPos;
-        for(int i = startPos+1; i < temperatures.length; i++){
-            if(temperatures[i] > temperatures[currentPos]){
-                if((i - currentPos) <= 2){
-                    mRun++;
-                }
-                else{
-                    mRun += calcSubLongestRuns(previousPos, temperatures, currentPos, i);
-                }
-                previousPos = currentPos;
-                currentPos = i;
-            }
+        for(int i = 0; i < temperatures[currentPos]; i++){
+            len = maxLongestPathForSub(currentPos, temperatures, vertexLenArr);
+            len = Math.max(len, longestPathTo(i, temperatures, vertexLenArr));
         }
-        return mRun;
+        return 1 + len;
     }
 
-    /*
-        Receives a sub array that is skipped after a dip.
-        Figures out whether the dip interval has longer run.
-     */
-    private static int calcSubLongestRuns(int startPos, int[] temperatures, int currentPos, int endPos){
-        int sRun = 1;
-
-        if((endPos - currentPos) < 3){
-            return sRun;
+    public static int maxLongestPathForSub(int currentPos, int[] temperatures, int[] vertexLenArr){
+        int[] subLenArr = new int[currentPos];
+        /*
+            Sets all values in subLenArr to be 0;
+         */
+        for(int i = 0; i < currentPos; i++){
+            subLenArr[i] = 0;
         }
-        int sPos = startPos;
-        int pPos = startPos;
-        for(int i = currentPos+1; i < endPos; i++){
-            if(temperatures[i] > temperatures[sPos]){
-                if((i - sPos) <= 2){
-                    sRun++;
-                }
-                else{
-                    sRun += calcSubLongestRuns(pPos, temperatures, sPos, i);
-                }
-                pPos = sPos;
-                sPos = i;
+        for(int i = 0; i < currentPos; i++){
+            if(temperatures[currentPos] > temperatures[i]){
+                subLenArr[i] += 1;
             }
         }
-        return sRun;
+        int maxPath = 0;
+        for(int i = 0; i < currentPos; i++){
+            if(maxPath < subLenArr[i]){
+                maxPath = subLenArr[i];
+            }
+        }
+        return maxPath;
     }
+
 }
