@@ -56,7 +56,7 @@ public class WeatherPatterns {
                 vertexPos = posTempToIndex(temperatures[i]);
                 if (vertexLenArr[vertexPos] == 0) {
                     //Path not calculated yet
-                    vertexLenArr[vertexPos] = longestPathTo(i, temperatures, vertexLenArr);
+                   vertexLenArr[vertexPos] = longestPathTo(i, temperatures, vertexLenArr);
                 }
                 len = Math.max(len, vertexLenArr[vertexPos]);
             }
