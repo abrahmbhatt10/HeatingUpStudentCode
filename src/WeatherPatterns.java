@@ -50,52 +50,17 @@ public class WeatherPatterns {
      */
     public static int longestPathTo(int currentPos, int[] temperatures, int[] vertexLenArr){
         int len = 0;
-        if(currentPos == 0){
-            return 1 + len;
-        }
-        int currentLen = 0;
         int vertexPos = 0;
         for(int i = 0; i < currentPos; i++){
             if(temperatures[currentPos] > temperatures[i]) {
                 vertexPos = posTempToIndex(temperatures[i]);
                 if (vertexLenArr[vertexPos] == 0) {
                     //Path not calculated yet
-                    vertexLenArr[vertexPos] = maxLongestPathForSub(i, temperatures, vertexLenArr);
+                    vertexLenArr[vertexPos] = longestPathTo(i, temperatures, vertexLenArr);
                 }
-                if (len < vertexLenArr[vertexPos]) {
-                    len = vertexLenArr[vertexPos];
-                }
+                len = Math.max(len, vertexLenArr[vertexPos]);
             }
         }
-        return 1 + len;
-    }
-
-    public static int maxLongestPathForSub(int currentPos, int[] temperatures, int[] vertexLenArr){
-        int[] subLenArr = new int[currentPos];
-        /*
-            Sets all values in subLenArr to be 0;
-        */
-        if(currentPos == 0)
-        {
-            return 1;
-        }
-        for(int i = 0; i < currentPos; i++){
-            subLenArr[i] = 0;
-        }
-        int vertexPos = 0;
-        for(int i = 0; i < currentPos; i++){
-            if(temperatures[currentPos] > temperatures[i]){
-                vertexPos = posTempToIndex(temperatures[i]);
-                subLenArr[i] = vertexLenArr[vertexPos];
-                subLenArr[i] += 1;
-            }
-        }
-        int maxPath = 0;
-        for(int i = 0; i < currentPos; i++){
-            if(maxPath < subLenArr[i]){
-                maxPath = subLenArr[i];
-            }
-        }
-        return maxPath;
+        return 1+len;
     }
 }
