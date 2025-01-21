@@ -30,7 +30,10 @@ public class WeatherPatterns {
         }
         return longestPath;
     }
-
+    /*
+        This function below converts the temperature value from the temperature's array
+        to the equivalent position in the vertex length array.
+     */
     public static int posTempToIndex(int currentTemp){
         // -50 is vertex index 0
         // 130 is vertex index 180
