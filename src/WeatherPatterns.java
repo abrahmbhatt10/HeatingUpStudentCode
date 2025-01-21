@@ -22,13 +22,19 @@ public class WeatherPatterns {
         int vertexPos = 0;
         int longestPath = 0;
         for(int i = 0; i < temperatures.length; i++){
-            vertexPos = temperatures[i];
+            vertexPos = posTempToIndex(temperatures[i]);
             vertexLenArr[vertexPos] = longestPathTo(i, temperatures, vertexLenArr);
             if(vertexLenArr[vertexPos] > longestPath){
                 longestPath = vertexLenArr[vertexPos];
             }
         }
         return longestPath;
+    }
+
+    public static int posTempToIndex(int currentTemp){
+        // -50 is vertex index 0
+        // 130 is vertex index 180
+        return currentTemp+50;
     }
 
     /*
@@ -45,12 +51,17 @@ public class WeatherPatterns {
             return 1 + len;
         }
         int currentLen = 0;
+        int vertexPos = 0;
         for(int i = 0; i < currentPos; i++){
-            if(vertexLenArr[i] == 0){
-                vertexLenArr[i] = maxLongestPathForSub(i, temperatures, vertexLenArr);
-            }
-            if(len < vertexLenArr[i]){
-                len = vertexLenArr[i];
+            if(temperatures[currentPos] > temperatures[i]) {
+                vertexPos = posTempToIndex(temperatures[i]);
+                if (vertexLenArr[vertexPos] == 0) {
+                    //Path not calculated yet
+                    vertexLenArr[vertexPos] = maxLongestPathForSub(i, temperatures, vertexLenArr);
+                }
+                if (len < vertexLenArr[vertexPos]) {
+                    len = vertexLenArr[vertexPos];
+                }
             }
         }
         return 1 + len;
@@ -60,12 +71,19 @@ public class WeatherPatterns {
         int[] subLenArr = new int[currentPos];
         /*
             Sets all values in subLenArr to be 0;
-         */
+        */
+        if(currentPos == 0)
+        {
+            return 1;
+        }
         for(int i = 0; i < currentPos; i++){
             subLenArr[i] = 0;
         }
+        int vertexPos = 0;
         for(int i = 0; i < currentPos; i++){
             if(temperatures[currentPos] > temperatures[i]){
+                vertexPos = posTempToIndex(temperatures[i]);
+                subLenArr[i] = vertexLenArr[vertexPos];
                 subLenArr[i] += 1;
             }
         }
