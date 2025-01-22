@@ -8,7 +8,7 @@ Name: Agastya Brahmbhatt
 | Jan 15 |    6 - 6:30    |                              I created a recursion program for calculating longest run in a given interval. I debugged the recursion. I played with different initial and offset values. |
 | Jan 15 |    6:30 - 7    |                                                                        I debugged the code. The efficientLarger test was still failing. The number increased, but is still not matching. |
 | Jan 15 |    7 - 7:30    |                                                                           I worked on the recursion. I tried debugging with stop points. I could not figure out where I was going wrong. |
-| Jan 20 |  4:00 - 4:30   |                                                                                                                                                                                       I  |
+| Jan 20 |  4:00 - 4:30   |                                                                                                                                                                                        I |
 | Jan 20 |    4:30 - 5    |                                                                                                                                                                                          |
 | Jan 20 |    5 - 5:30    |                                                                                                                                                                                          |
 | Jan 20 |    5:30 - 6    |                                                                                                                                                                                          |
